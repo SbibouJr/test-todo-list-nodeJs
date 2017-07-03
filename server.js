@@ -13,72 +13,66 @@ app.use( urlencodedParser )
 
 .use(session({secret: "secretTodoList"}))
 
-.get("/style", function(req, res){
+.use( (p_req, p_res, p_next ) => {
+	p_req.session.todoList = p_req.session.todoList ? p_req.session.todoList : [];
+	p_next();
+})
+
+.get("/style", (p_req, p_res) => {
 
 	fs.readFile("./style/style.less", function (err,data){
 		if(err){
 			console.log("ERROR : " + err.message);
-			res.setHeader('Content-Type', 'text/html ');
-			res.status(404).send("ERREUR 404 : Page introuvable");
+			p_res.setHeader('Content-Type', 'text/html ');
+			p_res.status(404).send("ERREUR 404 : Page introuvable");
 		}
 		else{
-			res.setHeader('Content-Type', 'text/css');
-			res.end(data);
+			p_res.setHeader('Content-Type', 'text/css');
+			p_res.end(data);
 		}
-
 	});
 })
 
-.get("/", function(req, res){
-	
-	req.session.todoList = req.session.todoList ? req.session.todoList : [];
-
-	res.setHeader('Content-Type', 'text/html');
-	res.render("todo.ejs", {"todoList": req.session.todoList});
+.get("/home", (p_req, p_res) => {
+	p_res.setHeader('Content-Type', 'text/html');
+	p_res.render("todo.ejs", {"todoList": p_req.session.todoList});
 })
 
-.get("/:postId", function(req, res){
+.get("/home/remove/:post_id", (p_req, p_res) => {
 	
-	let s_todoList = req.session.todoList ? req.session.todoList : [];
-	let post_id = req.params.postId;
+	let s_todoList = p_req.session.todoList;
+	let post_id = p_req.params.post_id;
 
-	if(s_todoList){
-		if(post_id >= 0 && post_id < s_todoList.length){
-			let newTodoList = [];
-			let j = 0;
-			for(let i = 0; i < s_todoList.length; i++){
-				if(i != post_id){
-					newTodoList[j] = s_todoList[i];
-					j++;
-				}
+	if(post_id >= 0 && post_id < s_todoList.length){
+		let newTodoList = [];
+		let j = 0;
+		for(let i = 0; i < s_todoList.length; i++){
+			if(i != post_id){
+				newTodoList[j] = s_todoList[i];
+				j++;
 			}
-			s_todoList = newTodoList;
 		}
+		s_todoList = newTodoList;
 	}
 
-	req.session.todoList = s_todoList;
-
-	res.setHeader('Content-Type', 'text/html');
-	res.render("todo.ejs", {"todoList": s_todoList});
+	p_req.session.todoList = s_todoList;
+	p_res.redirect("/home");
 })
 
-.post("/", function(req, res){
+.post("/home/add", (p_req, p_res) => {
 
-	let s_todoList = req.session.todoList ? req.session.todoList : [];
+	let s_todoList = p_req.session.todoList;
 
-	if(req.body.todo){
-		s_todoList[s_todoList.length] = req.body.todo;
+	if(p_req.body.todo){
+		s_todoList[s_todoList.length] = p_req.body.todo;
 	}
 
-	req.session.todoList = s_todoList;
-
-	res.setHeader('Content-Type', 'text/html');
-	res.render("todo.ejs", {"todoList": s_todoList});
+	p_req.session.todoList = s_todoList;
+	p_res.redirect("/home");
 })
 
-.use(function(req, res, next){
-	res.setHeader('Content-Type', 'text/html');
-	res.status(404).send("ERREUR 404 : Page introuvable");
+.use( (p_req, p_res, p_next) => {
+	p_res.redirect("/home");
 });
 
 app.listen("8080");
