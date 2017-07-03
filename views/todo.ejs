@@ -6,17 +6,18 @@
 		<!--[if lt IE 9]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet/less" href="./style" />
 		<title>Titre</title>
 	</head>
 	<body>
-		<header></header>
-		<div>
+		<header class="main_header">
 			<h1>Ma todolist</h1>
-			<form method="post" action="./">
-				<label for="todo">Que dois-je faire ? :</label>
-				<input id="todo" name="todo" type="text" />
+		</header>
+		<div class="main_body">
+			<form class="form_todo" method="post" action="./">
+				<label class="form_todo_label" for="todo">Que dois-je faire ? :</label><br/>
 				<input type="submit" value="Ajouter"/>
+				<input id="todo" name="todo" type="text" placeholder="Que dois-je faire ? "/>
 			</form>
 			<%
 				if(todoList.length){
@@ -35,6 +36,9 @@
 				}
 			%>
 		</div>
-		<footer></footer>
+		<footer class="main_footer">
+
+		</footer>
+		<!-- ************* DEV ************** --> <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 	</body>
 </html>

@@ -1,0 +1,62 @@
+/* ************************** */
+/* ********** COLOR ********* */
+/* ************************** */
+@headerColor:#000000;
+@backgroundColor:#212121;
+@cardColor:#303030;
+@bcCardColor:#424242;
+@inputColor:#606060;
+@borderColor:white;
+@fontColor:	rgb(255, 255, 255);
+@linkColor:white;
+@linkHoverColor:rgb(255, 232, 134);
+@bodyColor:rgb(52, 63, 1);
+@strongColor:rgb(215, 179, 24);
+@buttonColor:rgb(1, 19, 35);
+
+html , body {
+	width: 100%;
+	height:100%;
+}
+
+*{
+	box-sizing: border-box; /* Opera/IE 8+ */
+	-moz-box-sizing: border-box; /* Firefox, autres Gecko */
+	-webkit-box-sizing: border-box; /* Safari/Chrome, autres WebKit */
+
+	margin:0;
+	padding:0;
+}
+
+body{
+	background-color: @backgroundColor;
+	color: white;	
+
+	.main_header{
+		width:100%;
+		height: 100px;
+		background-color: @headerColor;
+	}
+
+
+	.main_body{
+		width: 900px;
+		max-width: 95%;
+		padding:20px;
+		margin: auto;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		border-radius: 5px;
+		box-shadow:12px 12px 10px rgba(0, 0, 0, 0.8);
+		background-color: @cardColor;
+		.form_todo{
+
+
+		}
+	}
+
+	.main_footer{
+		width: 100%;
+		background-color: @headerColor;
+	}
+}

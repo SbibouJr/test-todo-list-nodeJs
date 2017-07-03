@@ -1,6 +1,6 @@
 
 "use strict"
-
+let fs = require("fs");
 let express = require("express");
 let ejs = require("ejs");
 let session = require('cookie-session'); // Charge le middleware de sessions
@@ -12,6 +12,22 @@ let app = express();
 app.use( urlencodedParser )
 
 .use(session({secret: "secretTodoList"}))
+
+.get("/style", function(req, res){
+
+	fs.readFile("./style/style.less", function (err,data){
+		if(err){
+			console.log("ERROR : " + err.message);
+			res.setHeader('Content-Type', 'text/html ');
+			res.status(404).send("ERREUR 404 : Page introuvable");
+		}
+		else{
+			res.setHeader('Content-Type', 'text/css');
+			res.end(data);
+		}
+
+	});
+})
 
 .get("/", function(req, res){
 	
