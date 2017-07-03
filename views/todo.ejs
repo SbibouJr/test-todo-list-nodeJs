@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width , height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" href="style.css" />
+		<title>Titre</title>
+	</head>
+	<body>
+		<header></header>
+		<div>
+			<h1>Ma todolist</h1>
+			<form method="post" action="./">
+				<label for="todo">Que dois-je faire ? :</label>
+				<input id="todo" name="todo" type="text" />
+				<input type="submit" value="Ajouter"/>
+			</form>
+			<%
+				if(todoList.length){
+					for(var i = todoList.length-1; i >= 0;i--){
+			%>
+				<ul>
+					<li><a href="./<%= i %>"><em>X</em></a> <%= todoList[i] %></li>
+				</ul>
+			<%
+					}
+				}
+				else{
+			%>
+				<p> Vous n'avez aucune tache !</p>
+			<%
+				}
+			%>
+		</div>
+		<footer></footer>
+	</body>
+</html>
