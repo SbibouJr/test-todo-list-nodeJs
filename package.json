@@ -4,8 +4,8 @@
   "dependencies": {
     "ejs": "~2.5",
     "express": "~4.15",
-	"cookie-session": "~1.1",
-	"body-parser": "~1.10"
+    "cookie-session": "~1.1",
+    "body-parser": "~1.10"
   },
   "author": "SbibouJr <sbibou.jr@email.com>",
   "description": "Un gestionnaire de todolist ultra basique"
